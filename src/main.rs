@@ -43,6 +43,21 @@ fn main() {
     makes_copy(i);
     println!("{}", i);
     makes_copy(i); // for this type we can call the function and pass i value again and it's ok because i is copy (integer type)
+
+    // return value and scope
+    let s5 = gives_ownership();
+    println!("{}", s5);
+
+    let s6 = String::from("hello s6");
+
+    let s7 = takes_and_gives_back(s6);
+    println!("{}", s7);
+
+    // use tuple
+    let s8 = String::from("hello s8");
+    let (s9, len) = calculate_length(s8);
+    println!("The length of '{}' is {}.", s9, len);
+
 }
 
 fn takes_ownership(some_string: String) {
@@ -51,4 +66,18 @@ fn takes_ownership(some_string: String) {
 
 fn makes_copy(some_integer: i32) {
     println!("{}", some_integer);
+}
+
+fn gives_ownership() -> String {
+    let some_string = String::from("hello owner");
+    some_string
+}
+
+fn takes_and_gives_back(a_string: String) -> String {
+    a_string
+}   
+
+fn calculate_length(s: String) -> (String, usize) {
+    let length = s.len();
+    (s, length)
 }
