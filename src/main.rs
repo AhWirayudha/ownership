@@ -35,10 +35,14 @@ fn main() {
 
     //ownership and function
     let sf = String::from("hello");
+    println!("{}", sf);
     takes_ownership(sf);
+    // calling this function and pass sf cannot be used again, takes_ownership(sf); String value move to function and can't be used again, this code error
 
     let i = 5;
     makes_copy(i);
+    println!("{}", i);
+    makes_copy(i); // for this type we can call the function and pass i value again and it's ok because i is copy (integer type)
 }
 
 fn takes_ownership(some_string: String) {
