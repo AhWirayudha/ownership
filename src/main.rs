@@ -16,5 +16,21 @@ fn main() {
     let s4 = s3.clone();
     println!("s3 = {}, s4 = {}", s3, s4);
 
-    
+    // but we doesn't have to use clone if we store in stack
+    let x = 5; // type integer is known size at compile time and store completely in stack
+    let y = x;
+    println!("x = {}, y = {}", x, y);
+
+    // copy, simple scalar type can be copied and tuple only if they contain type that implement copy
+    // copy tuple sample
+    let t = (1, 2);
+    let t2 = t;
+    println!("{}, {}", t.0, t.1);
+    println!("{}, {}", t2.0, t2.1);
+    // copy char sample
+    let c = 'c';
+    let c2 = c;
+    println!("{}", c);
+    println!("{}", c2);
+
 }
