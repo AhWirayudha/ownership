@@ -58,6 +58,14 @@ fn main() {
     let (s9, len) = calculate_length(s8);
     println!("The length of '{}' is {}.", s9, len);
 
+    // Reference and Borrowing
+    // Reference is a pointer to a memory location that allow you to access a value without taking ownership
+    let s10 = String::from("hello s10");
+    let len = calculate_length2(&s10); // pass a reference to s10 (&s10)
+    println!("The length of '{}' is {}.", s10, len);
+
+    // Because we only borrow s10, s10 cannot be modified
+    // change(&s10); => error if u try to change s10 that we borrowed
 }
 
 fn takes_ownership(some_string: String) {
@@ -81,3 +89,13 @@ fn calculate_length(s: String) -> (String, usize) {
     let length = s.len();
     (s, length)
 }
+
+// fn with reference &String, and with reference we won't need to give back ownership because we never take ownership and just borrow
+fn calculate_length2(s: &String) -> usize {
+    s.len()
+}
+
+// fn with reference and try to changes
+// fn change(some_string: &mut String) {
+//     some_string.push_str(", world");
+// }
