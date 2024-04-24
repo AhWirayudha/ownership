@@ -66,6 +66,54 @@ fn main() {
 
     // Because we only borrow s10, s10 cannot be modified
     // change(&s10); => error if u try to change s10 that we borrowed
+
+    // Mutable reference
+    // fix change code with mutable reference
+    let mut s11 = String::from("hello s11");
+    change_mut(&mut s11);
+    println!("{}", s11);
+
+    // cannot borrow as mutable more than one
+    let mut s12 = String::from("hello s12");
+
+    let r1 = &mut s12;
+    println!("{}", r1);
+    // let r2 = &mut s12; => you cannot do this, borrowing mutable more than one time is not allowed
+    // println!("{} {}", r1, r2);
+    // this practice prevent data races
+
+    // mutable but in scope, you can do it cause it's in scope
+    let mut s13 = String::from("hello s13");
+
+    {
+        let r3 = &mut s13;
+        println!("{}", r3);
+    }
+
+    let r4 = &mut s13;
+    println!("{}", r4);
+
+    // with mutable and immutable reference
+    let mut s14 = String::from("hello s14");
+
+    let r5 = &s14;
+    let r6 = &s14;
+    // let r7 = &mut s14; you can't do this cause already borrowed as immutable
+    // println!("{} {} {}", r5, r6, r7);
+
+    println!("{} {}", r5, r6);
+
+    // code that run because end of scope
+    let mut s15 = String::from("hello s15");
+
+    let r8 = &s15;
+    let r9 = &s15;
+    // scope end here in println
+    println!("{} {}", r8, r9);
+
+    // so we can use s15 again as mutable
+    let r10 = &mut s15;
+    println!("{}", r10);
 }
 
 fn takes_ownership(some_string: String) {
@@ -99,3 +147,7 @@ fn calculate_length2(s: &String) -> usize {
 // fn change(some_string: &mut String) {
 //     some_string.push_str(", world");
 // }
+
+fn change_mut(some_string: &mut String) {
+    some_string.push_str(", world mut reference");
+}
