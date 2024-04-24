@@ -114,6 +114,12 @@ fn main() {
     // so we can use s15 again as mutable
     let r10 = &mut s15;
     println!("{}", r10);
+
+    // dangling reference
+    // let reference_to_nothing = dangle(); //=> error cause dangle return nothing
+
+    let s16 = no_dangle();
+    println!("{}", s16);
 }
 
 fn takes_ownership(some_string: String) {
@@ -151,3 +157,16 @@ fn calculate_length2(s: &String) -> usize {
 fn change_mut(some_string: &mut String) {
     some_string.push_str(", world mut reference");
 }
+
+// fn dangle() -> &String { // dangle returns a reference to a String
+
+//    let s = String::from("hello"); // s is a new String
+
+//    &s // we return a reference to the String, s
+// } // Here, s goes out of scope, and is dropped. Its memory goes away.
+  // Danger!
+
+fn no_dangle() -> String {
+    let s = String::from("hello");
+    s
+}  
