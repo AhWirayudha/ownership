@@ -128,6 +128,9 @@ fn main() {
     let word = first_word(&s17);
     println!("the first word is: {}", word);
 
+    let second_word = second_word(&s17);
+    println!("the second word is: {} {}", second_word.0, second_word.1);
+
     s17.clear();
     println!("s17 is cleared: {}, but word is not: {}", s17, word); // => problem here s17 is cleared but word is not
 }
@@ -190,4 +193,15 @@ fn first_word(s: &str) -> usize {
         }
     }
     s.len()
+}
+
+fn second_word(s: &str) -> (usize, usize) {
+    let bytes = s.as_bytes();
+    // search for starting index and end index of second word
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return (i + 1, s.len());
+        }
+    }
+    (s.len(), s.len())
 }
