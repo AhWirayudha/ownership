@@ -120,6 +120,16 @@ fn main() {
 
     let s16 = no_dangle();
     println!("{}", s16);
+
+    // Slice type
+    // programming problem
+    let mut s17 = String::from("hello s17");
+
+    let word = first_word(&s17);
+    println!("the first word is: {}", word);
+
+    s17.clear();
+    println!("s17 is cleared: {}, but word is not: {}", s17, word); // => problem here s17 is cleared but word is not
 }
 
 fn takes_ownership(some_string: String) {
@@ -170,3 +180,14 @@ fn no_dangle() -> String {
     let s = String::from("hello");
     s
 }  
+
+fn first_word(s: &str) -> usize {
+    let bytes = s.as_bytes();
+    println!("{:?}", bytes);
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+    s.len()
+}
