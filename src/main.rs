@@ -133,6 +133,43 @@ fn main() {
 
     s17.clear();
     println!("s17 is cleared: {}, but word is not: {}", s17, word); // => problem here s17 is cleared but word is not
+
+    // slice string, didn't work with utf8
+    let s18 = String::from("hello s18");
+
+    let hello = &s18[0..5];
+    let world = &s18[6..9];
+
+    println!("{} {}", hello, world);
+
+    let slice = &s18[0..2];
+    let slice2 = &s18[..2];
+
+    println!("{} {}", slice, slice2);
+
+    let len = s18.len();
+
+    let slice3 = &s18[3..len];
+    let slice4 = &s18[3..];
+
+    let slice5 = &s18[..];
+    let slice6 = &s18[0..len];
+
+    println!("{} {} {} {}", slice3, slice4, slice5, slice6);
+
+    // rewrite first word
+    let mut s19 = String::from("hello s19");
+
+    let word = first_word_slice(&s19);
+
+    // s19.clear(); => error because s19 is mutable here but called as immutable on println
+
+    println!("the first word is: {}", word);
+
+    let second = second_word_slice(&s19);
+
+    println!("the second word is: {}", second);
+
 }
 
 fn takes_ownership(some_string: String) {
@@ -204,4 +241,24 @@ fn second_word(s: &str) -> (usize, usize) {
         }
     }
     (s.len(), s.len())
+}
+
+fn first_word_slice(s: &String) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    &s[..]
+}
+
+fn second_word_slice(s: &String) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[i + 1..];
+        }
+    }
+    &s[..]
 }
