@@ -183,7 +183,16 @@ fn main() {
     let word = first_word_slice2(&my_string); // need reference
     println!("the first word is: {}", word);
 
+    // other slice
+    let a = [1, 2, 3, 4, 5];
 
+    let slice = &a[1..3];
+
+    assert_eq!(slice, &[2, 3]); // true equal slice with array [2, 3]
+
+    println!("the slice is: {:?}", slice); 
+
+    // ownership, borrowing and slice ensure memory safety
 }
 
 fn takes_ownership(some_string: String) {
