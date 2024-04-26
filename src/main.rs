@@ -170,6 +170,20 @@ fn main() {
 
     println!("the second word is: {}", second);
 
+    // string literal slice
+    let s20 = "hello s20";
+    let word = first_word_slice2(&s20[0..6]);
+    println!("the first word is: {}", word);
+    let word = first_word_slice2(&s20[..]);
+    println!("the first word is: {}", word);
+    let word = first_word_slice2(s20); // work without slice because literal already have slice
+    println!("the first word is: {}", word);
+
+    let my_string = String::from("hello s21");
+    let word = first_word_slice2(&my_string); // need reference
+    println!("the first word is: {}", word);
+
+
 }
 
 fn takes_ownership(some_string: String) {
@@ -258,6 +272,17 @@ fn second_word_slice(s: &String) -> &str {
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
             return &s[i + 1..];
+        }
+    }
+    &s[..]
+}
+
+// string slice as parameter
+fn first_word_slice2(s: &str) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
         }
     }
     &s[..]
